@@ -17,7 +17,7 @@
  */
 #include "load_file.h"
 #include <blt/std/loader.h>
-#include <cstdio>
+#include <regex>
 
 namespace blt
 {
@@ -155,29 +155,13 @@ namespace blt
         std::cout << std::string(func_name) << std::endl;
     }
     
-    std::string_view parser::strip_func(std::string_view func)
+    std::string parser::strip_func(std::string_view func)
     {
-        auto pos = func.find("Matrix");
-        if (pos == std::string_view::npos)
-        {
-            for (size_t i = 0; i < func.size(); i++)
-            {
-                char c = func[i];
-                switch (c)
-                {
-                    case 'i':
-                    case 'f':
-                    case 'u':
-                        pos = i - 1;
-                        break;
-                    default:
-                        break;
-                }
-                if (pos != std::string_view ::npos)
-                    break;
-            }
-        }
-        return std::string_view();
+        std::string f (func);
+        
+        std::regex matrx(R"(((Matrix)(\d|\w)+)|(\d|I|L)+(i|u|f|d|v|s|N|b|I)+)");
+        
+        return f;
     }
     
 }

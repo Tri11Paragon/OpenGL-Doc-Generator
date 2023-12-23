@@ -73,7 +73,7 @@ namespace blt
                 return std::isalnum(c) || c == '_';
             }
             
-            std::string_view strip_func(std::string_view func);
+            std::string strip_func(std::string_view func);
             void process_gl_func(std::string_view func_name);
         
         public:
