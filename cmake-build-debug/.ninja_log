@@ -1,0 +1,16 @@
+# ninja log v5
+2	1557	1703268859405099707	libraries/BLT/CMakeFiles/BLT.dir/src/blt/std/string.cpp.o	4c702328e32666de
+0	3983	1703268861825075245	CMakeFiles/gl_doc_generator.dir/src/main.cpp.o	3e3d27143e522e3d
+3	2439	1703268860285090811	libraries/BLT/CMakeFiles/BLT.dir/src/blt/std/system.cpp.o	f9cd022b3d7a5101
+3	4950	1703268862793065461	libraries/BLT/CMakeFiles/BLT.dir/src/blt/profiling/profiler_v2.cpp.o	9b3b07ae9865e6f8
+3	3223	1703268861065082927	libraries/BLT/CMakeFiles/BLT.dir/src/blt/profiling/profiler.cpp.o	1d47913c749a3b32
+1	3691	1703268861533078196	libraries/BLT/CMakeFiles/BLT.dir/src/blt/std/format.cpp.o	9b1e43a2ea17a6f6
+4	5412	1703268863253060812	libraries/BLT/CMakeFiles/BLT.dir/src/blt/parse/argparse.cpp.o	a6706c9781200172
+5412	5759	1703268863593057376	libraries/BLT/libBLT.a	f5b601d9b774b003
+2	3753	1703268861597077550	libraries/BLT/CMakeFiles/BLT.dir/src/blt/std/logging.cpp.o	42a6440ec9698a89
+2	1814	1703268859661097119	libraries/BLT/CMakeFiles/BLT.dir/src/blt/std/loader.cpp.o	e917d1bb076e0543
+4	938	1703268858785105975	libraries/BLT/CMakeFiles/BLT.dir/src/blt/nbt/nbt_block.cpp.o	8c7c244e08fbb277
+4	3199	1703268861045083129	libraries/BLT/CMakeFiles/BLT.dir/src/blt/nbt/nbt.cpp.o	532f8b780ea1f03b
+5759	5940	1703268863785055436	gl_doc_generator	f13e6d50aadef904
+1	1425	1703268859273101041	libraries/BLT/CMakeFiles/BLT.dir/src/blt/std/filesystem.cpp.o	96a36f848b730d0d
+0	1509	1703268859357100192	libraries/BLT/CMakeFiles/BLT.dir/src/blt/std/assert.cpp.o	6187a34339e88ff0
