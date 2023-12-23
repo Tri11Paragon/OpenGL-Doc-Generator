@@ -32,7 +32,7 @@ namespace blt
         OTHER,                  // literally anything else (we do not care about it)
         PREPROCESSOR_DEFINE,    // #define
         IDENTIFIER,             // either a variable or a type (void / thisismyvar)
-        POSSIBLE_FUNC,
+        POSSIBLE_FUNC,          // we had an identifier and found a space
         FUNCTION                // myfunctioname(
     };
     
@@ -50,6 +50,9 @@ namespace blt
             std::string file;
             std::string data;
             std::string parsed;
+            
+            std::string pythonPath;
+            std::string generatorPath;
             state_type state = state_type::OTHER;
             std::vector<state_container> parsed_tokens;
             
@@ -70,10 +73,12 @@ namespace blt
                 return std::isalnum(c) || c == '_';
             }
             
+            std::string_view strip_func(std::string_view func);
             void process_gl_func(std::string_view func_name);
         
         public:
-            explicit parser(std::string_view path): path(path)
+            explicit parser(std::string_view path, std::string_view pythonPath, std::string_view generatorPath):
+                    path(path), pythonPath(pythonPath), generatorPath(generatorPath)
             {}
             
             parser& load_file();

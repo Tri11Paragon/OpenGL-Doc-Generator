@@ -17,6 +17,7 @@
  */
 #include "load_file.h"
 #include <blt/std/loader.h>
+#include <cstdio>
 
 namespace blt
 {
@@ -114,7 +115,7 @@ namespace blt
                         while (end > 0 && std::isspace(data[end]))
                             end--;
                         // end isn't inclusive
-                        end+=1;
+                        end += 1;
                         // begin is
                         auto begin = end - 1;
                         while (begin > 0 && is_ident(data[begin]))
@@ -138,14 +139,45 @@ namespace blt
                     break;
             }
         }
-        BLT_DEBUG("Finished in state %d", (int) state);
+//        BLT_DEBUG("Finished in state %d", (int) state);
 //        BLT_DEBUG("With data %s", parsed.c_str());
         return *this;
     }
     
     void parser::process_gl_func(std::string_view func_name)
     {
-        BLT_INFO("Running on function %s", std::string(func_name).c_str());
+//        std::string reference_link = "https://registry.khronos.org/OpenGL-Refpages/gl4/html/";
+//        reference_link.reserve(func_name.length() + 6);
+//        reference_link += func_name;
+//        reference_link += ".xhtml";
+//        auto pid = popen(pythonPath + " " + generatorPath + " " + reference_link, "r");
+//        BLT_INFO("Running on function %s", std::string(func_name).c_str());
+        std::cout << std::string(func_name) << std::endl;
+    }
+    
+    std::string_view parser::strip_func(std::string_view func)
+    {
+        auto pos = func.find("Matrix");
+        if (pos == std::string_view::npos)
+        {
+            for (size_t i = 0; i < func.size(); i++)
+            {
+                char c = func[i];
+                switch (c)
+                {
+                    case 'i':
+                    case 'f':
+                    case 'u':
+                        pos = i - 1;
+                        break;
+                    default:
+                        break;
+                }
+                if (pos != std::string_view ::npos)
+                    break;
+            }
+        }
+        return std::string_view();
     }
     
 }

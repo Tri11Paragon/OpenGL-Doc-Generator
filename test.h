@@ -25,6 +25,10 @@
 
 int ident = 0;
 
+// TODO:
+typedef void (*glCopyTextureSubImage3D)(int n, const int * pipelines);
+
+
 void glDrawTransformFeedbackStream()
 {
 

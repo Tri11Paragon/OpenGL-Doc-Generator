@@ -25,11 +25,11 @@ int main(int argc, const char** argv)
     
     BLT_INFO("Using %s on file %s", generatorPath.c_str(), filePath.c_str());
     
-    blt::parser file_parser(filePath);
+    blt::parser file_parser(filePath, pythonPath, generatorPath);
     file_parser.load_file().parse();
     auto vec = file_parser.get();
     
-    BLT_DEBUG("Result:\n%s", vec.c_str());
+    //BLT_DEBUG("Result:\n%s", vec.c_str());
     
     return 0;
 }
