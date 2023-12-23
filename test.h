@@ -25,17 +25,29 @@
 
 int ident = 0;
 
-void func1(){
+void glDrawTransformFeedbackStream()
+{
 
 }
 
-void func2()
+void func1()
+{
+
+}
+
+void
+
+
+func2
+        
+        ()
 {
 
 }
 
 void func3
-() {
+        ()
+{
 
 }
 

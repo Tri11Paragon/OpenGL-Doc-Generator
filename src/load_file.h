@@ -22,6 +22,7 @@
 #include <string>
 #include <string_view>
 #include <blt/std/logging.h>
+#include <cctype>
 
 namespace blt
 {
@@ -57,6 +58,16 @@ namespace blt
                 state = state_type::OTHER;
                 parsed += data;
                 data.clear();
+            }
+            
+            inline static bool is_ident_b(char c)
+            {
+                return std::isalpha(c) || c == '_';
+            }
+            
+            inline static bool is_ident(char c)
+            {
+                return std::isalnum(c) || c == '_';
             }
             
             void process_gl_func(std::string_view func_name);

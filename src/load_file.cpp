@@ -59,7 +59,7 @@ namespace blt
                 continue;
             }
             
-            BLT_TRACE("We have '%c' with '%s' at index %d state %d", c, data.c_str(), index, state);
+            //BLT_TRACE("We have '%c' with '%s' at index %d state %d", c, data.c_str(), index, state);
             
             switch (state)
             {
@@ -74,14 +74,14 @@ namespace blt
                         auto s3 = full_data.find(' ', s2);
                         if (s3 == std::string_view::npos)
                             s3 = full_data.size();
-                        if (blt::string::starts_with(full_data, "#define"))
+                        if (blt::string::starts_with(full_data, "#define gl"))
                             process_gl_func(std::string_view(&full_data[s1], s3 - s1));
                         reset();
                     } else if (c == '\n')
                         last = false;
                     else if (c == '\\')
                         last = true;
-                    else if (!(std::isalpha(c) || c == '_' || std::isspace(c)))
+                    else if (!(is_ident(c) || std::isspace(c)))
                         reset();
                     break;
                 case state_type::IDENTIFIER:
@@ -89,35 +89,51 @@ namespace blt
                         state = state_type::FUNCTION;
                     else if (std::isspace(c))
                         state = state_type::POSSIBLE_FUNC;
-                    else if (!(std::isalnum(c) || c == '_'))
+                    else if (!is_ident(c))
                         reset();
                     break;
                 case state_type::POSSIBLE_FUNC:
                     if (c == '(')
-                        state = state_type::POSSIBLE_FUNC;
+                        state = state_type::FUNCTION;
                     else if (!std::isspace(c))
-                        reset();
+                    {
+                        if (is_ident(c))
+                            state = state_type::FUNCTION;
+                        else
+                            reset();
+                    }
                     break;
                 case state_type::FUNCTION:
-                    if (c == '{')
+                    if (c == ')')
                     {
-//                        state = state_type::OTHER;
-//                        state_container con;
-//                        con.type = state_type::FUNCTION;
-//                        con.full_data = data;
-//                        data = "";
-//                        con.data = std::string_view(con.full_data.data(), con.full_data.find('('));
-                        BLT_DEBUG(data);
+                        // Jacob if you're actually reading this, this is all ugly & hacky code :3
+                        // please dm that you've read to here <3
+                        // enjoy trying to understand it.
+                        auto end = data.find('(') - 1;
+                        // gotta remove whitespace
+                        while (end > 0 && std::isspace(data[end]))
+                            end--;
+                        // end isn't inclusive
+                        end+=1;
+                        // begin is
+                        auto begin = end - 1;
+                        while (begin > 0 && is_ident(data[begin]))
+                            begin--;
+                        // skip the ws
+                        begin += 1;
+                        auto sv = std::string_view(&data[begin], end - begin);
+                        if (blt::string::starts_with(sv, "gl"))
+                            process_gl_func(sv);
                         reset();
-                    } else if (!(c == ')' || std::isalnum(c) || c == ',' || std::isblank(c)))
+                    } else if (!(c == '(' || is_ident(c) || c == ',' || std::isspace(c)))
                         reset();
                     break;
                 case state_type::OTHER:
                     if (c == '#')
                         state = state_type::PREPROCESSOR_DEFINE;
-                    else if (c == '\n')
+                    else if (std::isspace(c))
                         reset();
-                    else if (data.size() <= 1 && (std::isalpha(c) || c == '_'))
+                    else if (data.size() <= 1 && is_ident_b(c))
                         state = state_type::IDENTIFIER;
                     break;
             }
