@@ -40,7 +40,7 @@ python path, output location along with level of detail via flags passed to the 
 ```
 You can also specify detail flags which will cause certain sections to be removed from the comments.
 This is useful because this program can easily bloat the file size to be tens of thousands of lines which some
-IDEs do not handle. 
+IDEs do not like. 
 ```
 --no-see, -s    # Don't include @see sections
 --no-desc, -d   # Don't include the @descrition section
@@ -65,6 +65,7 @@ Generates a commented file where comments are of the style:
  * @code void glInvalidateTexSubImage(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth); @endcode
  */
 ```
+in the local directory called `gl.h` from a file of the same name in the parent directory.
 ```shell
 ./gl_doc_generator -b --output ./gl.h ../gl.h
 ```
