@@ -160,7 +160,10 @@ def process_errors(div):
 def process_seealso(div):
     if div is None:
         return []
-    div = div.find('p').find_all('a')
+    div = div.find('p')
+    if div is None:
+        return []
+    div = div.find_all('a')
 
     alsos = []
     for a in div:

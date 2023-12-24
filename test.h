@@ -28,6 +28,9 @@ int ident = 0;
 // TODO:
 typedef void (*glCopyTextureSubImage3D)(int n, const int * pipelines);
 
+#define glUniform1d glad_glUniform1d
+
+#define glUniform glad_glUniform1d
 
 void glDrawTransformFeedbackStream()
 {

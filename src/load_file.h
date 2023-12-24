@@ -23,6 +23,7 @@
 #include <string_view>
 #include <blt/std/logging.h>
 #include <cctype>
+#include <blt/std/hashmap.h>
 
 namespace blt
 {
@@ -36,16 +37,22 @@ namespace blt
         FUNCTION                // myfunctioname(
     };
     
-    struct state_container
+    struct partial_container
     {
-        std::string full_data;   // the entire parsed string
-        std::string_view data;   // a view into full_data containing relevant data (GL function name)
-        state_type type;         // the type of data stored
+        // the complete previous block of data we parsed through
+        std::string parsed;
+        // the function documentation we are waiting for
+        std::string waiting_for;
+        // the next block will contain the actual function definition
+        partial_container(std::string parsed, std::string waitingFor);
     };
     
     class parser
     {
         private:
+            bool clear_see_also = false;
+            bool clear_desc = false;
+            bool brief = false;
             std::string path;
             std::string file;
             std::string data;
@@ -54,7 +61,16 @@ namespace blt
             std::string pythonPath;
             std::string generatorPath;
             state_type state = state_type::OTHER;
-            std::vector<state_container> parsed_tokens;
+            
+            // holds the owning memory for the comment strings
+            std::vector<std::string> doc_string_storage;
+            // holds a mapping between all param names and a corresponding string_view to a string stored in doc_string_storage containing the doc
+            HASHMAP<std::string, std::string_view> found_docs;
+            
+            // list of partially compiled blocks we will need to loop through
+            std::vector<partial_container> partial_blocks;
+            // list of not found docs. useful for debug.
+            HASHSET<std::string> notfound;
             
             inline void reset()
             {
@@ -73,12 +89,17 @@ namespace blt
                 return std::isalnum(c) || c == '_';
             }
             
-            std::string strip_func(std::string_view func);
+            static std::string strip_func(std::string_view func);
+            
+            void strip_extras(std::string& str) const;
+            
+            static std::string strip_codes(const std::string& str, const std::string& func_name);
+            
             void process_gl_func(std::string_view func_name);
         
         public:
-            explicit parser(std::string_view path, std::string_view pythonPath, std::string_view generatorPath):
-                    path(path), pythonPath(pythonPath), generatorPath(generatorPath)
+            explicit parser(std::string_view path, std::string_view pythonPath, std::string_view generatorPath, bool seeAlso, bool desc, bool brief):
+                    clear_see_also(seeAlso), clear_desc(desc), brief(brief), path(path), pythonPath(pythonPath), generatorPath(generatorPath)
             {}
             
             parser& load_file();
