@@ -257,7 +257,6 @@ namespace blt
         auto lines = blt::string::split(str, '\n');
         for (auto& line : lines)
         {
-            blt::string::trim(line);
             if (line.empty())
                 continue;
             if (blt::string::contains(line, "@code") && !blt::string::contains(line, func_name + "("))
@@ -277,7 +276,15 @@ namespace blt
         for (size_t i = 0; i < lines.size(); i++)
         {
             auto& line = lines[i];
-            blt::string::trim(line);
+            if (brief)
+            {
+                if (!(blt::string::contains(line, "@name") || blt::string::contains(line, "@code") || blt::string::contains(line, "@usage") ||
+                      blt::string::contains(line, "/**") || blt::string::contains(line, "*/")))
+                    continue;
+                
+                new_str += line += '\n';
+                continue;
+            }
             if (line.empty())
                 continue;
             if (clear_see_also && blt::string::contains(line, "@see"))
