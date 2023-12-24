@@ -1,11 +1,16 @@
 cmake_minimum_required(VERSION 3.25)
-project(gl_doc_generator)
+project(gl_doc_generator VERSION 0.0.1 LANGUAGES CXX)
 
 option(ENABLE_ADDRSAN "Enable the address sanitizer" OFF)
 option(ENABLE_UBSAN "Enable the ub sanitizer" OFF)
 option(ENABLE_TSAN "Enable the thread data race sanitizer" OFF)
 
 set(CMAKE_CXX_STANDARD 17)
+
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "")
+    set(CMAKE_BUILD_TYPE "Release")
+endif ()
+message("Using ${CMAKE_BUILD_TYPE}")
 
 add_subdirectory(libraries/BLT)
 

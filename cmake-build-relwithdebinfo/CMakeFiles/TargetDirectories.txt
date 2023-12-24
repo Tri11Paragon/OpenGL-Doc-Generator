@@ -1,6 +1,0 @@
-/home/brett/Documents/code/c++/gl_doc_generator/cmake-build-relwithdebinfo/CMakeFiles/gl_doc_generator.dir
-/home/brett/Documents/code/c++/gl_doc_generator/cmake-build-relwithdebinfo/CMakeFiles/edit_cache.dir
-/home/brett/Documents/code/c++/gl_doc_generator/cmake-build-relwithdebinfo/CMakeFiles/rebuild_cache.dir
-/home/brett/Documents/code/c++/gl_doc_generator/cmake-build-relwithdebinfo/libraries/BLT/CMakeFiles/BLT.dir
-/home/brett/Documents/code/c++/gl_doc_generator/cmake-build-relwithdebinfo/libraries/BLT/CMakeFiles/edit_cache.dir
-/home/brett/Documents/code/c++/gl_doc_generator/cmake-build-relwithdebinfo/libraries/BLT/CMakeFiles/rebuild_cache.dir

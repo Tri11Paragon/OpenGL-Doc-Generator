@@ -4,11 +4,8 @@
 #include <fstream>
 #include "load_file.h"
 
-#include "../gl_doc.h"
-
 int main(int argc, const char** argv)
 {
-    glBindBuffer(50, 10);
     blt::arg_parse parser;
     
     parser.addArgument(blt::arg_builder("--generator").setAction(blt::arg_action_t::STORE).setDefault("./gl_doc_generator.py")
