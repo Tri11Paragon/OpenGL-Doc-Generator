@@ -17,7 +17,7 @@ but should work as far back as `GCC-8.5` on any Linux distro. Windows is support
 ### Building
 Clone the repository:
 ```shell
-git cline https://github.com/Tri11Paragon/OpenGL-Doc-Generator.git
+git clone --recursive https://github.com/Tri11Paragon/OpenGL-Doc-Generator.git
 cd OpenGL-Doc-Generator
 ```
 Make a build directory:
