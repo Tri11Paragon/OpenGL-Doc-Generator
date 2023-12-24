@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -Wall -Wextra -Werror -Wpedantic -Wno-comment -rdynamic CMakeFiles/gl_doc_generator.dir/src/load_file.cpp.o CMakeFiles/gl_doc_generator.dir/src/main.cpp.o -o gl_doc_generator  libraries/BLT/libBLT.a /usr/lib/x86_64-linux-gnu/libz.so 
